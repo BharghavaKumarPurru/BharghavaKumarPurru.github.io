@@ -16,16 +16,9 @@ export default function HeroSection({ persona, content }: HeroSectionProps) {
       const link = document.createElement("a")
       link.href = "/resume/Bharghava_Kumar_Purru_Resume.pdf"
       link.download = "Bharghava_Kumar_Purru_Resume.pdf"
+      document.body.appendChild(link)
       link.click()
-    } else if (content.hero.primaryCTA === "Let's Chat") {
-      window.open(
-        "https://wa.me/12164570576?text=Hi%20Bharghava!%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.",
-        "_blank"
-      )
-    } else if (content.hero.primaryCTA === "View Code") {
-      window.open("https://github.com/BharghavaKumarPurru", "_blank")
-    } else {
-      document.getElementById("content-sections")?.scrollIntoView({ behavior: "smooth" })
+      document.body.removeChild(link)
     }
   }
 
