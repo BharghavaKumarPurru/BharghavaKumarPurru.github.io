@@ -1,8 +1,14 @@
-# Netflix-Style Portfolio
+# Bharghava Kumar Purru
+
+## Netflix-Style Portfolio
 
 A modern, interactive portfolio website built with Next.js, featuring a Netflix-inspired design with personalized content for different viewer personas (recruiters, clients, collaborators).
 
-## Features
+## 🚀 Live Demo
+
+Visit the live site: [https://bharghavakumarpurru.github.io](https://bharghavakumarpurru.github.io)
+
+## ✨ Features
 
 - 🎬 Netflix-style interface with smooth animations
 - 👥 Multiple viewer personas (Recruiter, Client, Collaborator)
@@ -11,71 +17,65 @@ A modern, interactive portfolio website built with Next.js, featuring a Netflix-
 - 🎨 Modern UI with Tailwind CSS and shadcn/ui
 - ⚡ Built with Next.js 15 and React 19
 
-## Live Demo
+## 🛠️ Tech Stack
 
-Visit the live site: [https://bharghavakumarpurru.github.io/Portfolio.github.io](https://bharghavakumarpurru.github.io/Portfolio.github.io)
+- **Framework:** Next.js 15
+- **UI Library:** React 19
+- **Styling:** Tailwind CSS
+- **Components:** shadcn/ui
+- **Icons:** Lucide React
+- **Animations:** Framer Motion
+- **Deployment:** GitHub Pages
 
-## Local Development
+## 🏗️ Development
 
-1. Clone the repository:
 \`\`\`bash
-git clone https://github.com/BharghavaKumarPurru/Portfolio.github.io.git
-cd Portfolio.github.io
-\`\`\`
-
-2. Install dependencies:
-\`\`\`bash
+# Install dependencies
 npm install
-\`\`\`
 
-3. Run the development server:
-\`\`\`bash
+# Run development server
 npm run dev
-\`\`\`
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Deployment
-
-This project is automatically deployed to GitHub Pages using GitHub Actions. Every push to the `main` branch triggers a new deployment.
-
-### Manual Deployment
-
-To deploy manually:
-
-\`\`\`bash
+# Build for production
 npm run build
+
+# Deploy to GitHub Pages
 npm run deploy
 \`\`\`
 
-## Project Structure
+## 📁 Project Structure
 
 \`\`\`
 ├── app/                    # Next.js app directory
-├── components/            # Reusable React components
-├── lib/                   # Utility functions and configurations
-├── public/               # Static assets
-├── styles/               # Global styles
-└── .github/workflows/    # GitHub Actions workflows
+│   ├── dashboard/         # Persona-specific dashboards
+│   ├── projects/          # Projects showcase
+│   ├── skills/           # Skills and expertise
+│   ├── contact/          # Contact information
+│   └── resume/           # Resume/CV page
+├── components/           # Reusable React components
+├── lib/                 # Utility functions and configurations
+├── public/              # Static assets
+└── styles/              # Global styles
 \`\`\`
 
-## Technologies Used
+## 🎯 Personas
 
-- **Framework**: Next.js 15
-- **Styling**: Tailwind CSS, shadcn/ui
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Deployment**: GitHub Pages
-- **CI/CD**: GitHub Actions
+The portfolio adapts its content based on the viewer type:
 
-## Contributing
+- **Recruiter:** Focus on technical skills, experience, and achievements
+- **Client:** Emphasis on project outcomes and business value
+- **Collaborator:** Highlighting teamwork and collaboration skills
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 📄 License
 
-## License
+This project is open source and available under the [MIT License](LICENSE).
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📞 Contact
+
+- **Email:** [your-email@example.com](mailto:your-email@example.com)
+- **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/your-profile)
+- **GitHub:** [BharghavaKumarPurru](https://github.com/BharghavaKumarPurru)
+
+---
+
+Built with ❤️ by Bharghava Kumar Purru

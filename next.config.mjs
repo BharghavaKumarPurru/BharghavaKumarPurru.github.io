@@ -13,8 +13,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio.github.io' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio.github.io' : '',
+  // Remove basePath and assetPrefix since you're using the main github.io domain
+  assetPrefix: '',
+  basePath: '',
 }
 
 export default nextConfig

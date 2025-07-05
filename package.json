@@ -2,13 +2,13 @@
   "name": "netflix-portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bharghavakumarpurru.github.io/Portfolio.github.io",
+  "homepage": "https://bharghavakumarpurru.github.io",
   "scripts": {
     "build": "next build",
     "predeploy": "npm run build",
     "deploy": "npm run build && touch out/.nojekyll && gh-pages -d out",
     "dev": "next dev",
-    "export": "next build && next export",
+    "export": "next build",
     "lint": "next lint",
     "start": "next start"
   },
