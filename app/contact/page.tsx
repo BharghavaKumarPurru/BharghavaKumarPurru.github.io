@@ -4,252 +4,275 @@ import type React from "react"
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import Navbar from "@/components/navbar"
-import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Github, Linkedin, Download, Calendar } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Mail, Phone, MapPin, Github, Linkedin, Calendar, MessageCircle } from "lucide-react"
+import Navbar from "@/components/navbar"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
-    alert("Thank you for your message! I'll get back to you soon.")
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  // Add the resume download function:
-  const handleResumeDownload = () => {
-    const link = document.createElement("a")
-    link.href = "/resume/Bharghava_Kumar_Purru_Resume.pdf"
-    link.download = "Bharghava_Kumar_Purru_Resume.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      // Simulate form submission
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      setSubmitStatus("success")
+      setFormData({ name: "", email: "", subject: "", message: "" })
+    } catch (error) {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  // Add the schedule meeting function:
   const handleScheduleMeeting = () => {
-    // Open Calendly or similar scheduling service
     window.open("https://calendly.com/bharghavakumarpurru", "_blank")
+  }
+
+  const handleWhatsApp = () => {
+    window.open(
+      "https://wa.me/12164570576?text=Hi%20Bharghava!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect.",
+      "_blank",
+    )
   }
 
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
 
-      {/* Hero Section */}
-      <div className="relative min-h-screen flex items-center justify-center bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black" />
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 netflix-font">GET IN TOUCH</h1>
-            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Ready to collaborate? Let's discuss your next project or opportunity
+      <div className="pt-20 pb-16 px-8 md:px-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-6xl mx-auto"
+        >
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 netflix-font">Let's Connect</h1>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Ready to discuss your next project or just want to say hello? I'd love to hear from you.
             </p>
-          </motion.div>
-        </div>
-      </div>
+          </div>
 
-      {/* Content Section */}
-      <div className="relative z-20 bg-black py-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Contact Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Information */}
             <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="lg:col-span-2"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <Card className="bg-gray-900 border-gray-700 p-8">
-                <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="bg-gray-800 border-gray-600 text-white focus:border-red-500"
-                        placeholder="Your Name"
-                        required
-                      />
+              <Card className="bg-gray-900/50 border-gray-800 mb-8">
+                <CardHeader>
+                  <CardTitle className="text-white text-2xl mb-4">Get In Touch</CardTitle>
+                  <CardDescription className="text-gray-400">
+                    Choose your preferred way to connect with me
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-red-600/10 p-3 rounded-lg">
+                      <Mail className="h-6 w-6 text-red-400" />
                     </div>
-
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                      <Input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="bg-gray-800 border-gray-600 text-white focus:border-red-500"
-                        placeholder="your.email@example.com"
-                        required
-                      />
+                      <p className="text-white font-medium">Email</p>
+                      <a
+                        href="mailto:bharghavbhargav995@gmail.com"
+                        className="text-gray-400 hover:text-red-400 transition-colors"
+                      >
+                        bharghavbhargav995@gmail.com
+                      </a>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="bg-gray-800 border-gray-600 text-white focus:border-red-500 min-h-[120px]"
-                      placeholder="Tell me about your project or opportunity..."
-                      required
-                    />
-                  </div>
-
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      type="submit"
-                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 text-lg font-semibold"
-                    >
-                      Send Message
-                    </Button>
-                  </motion.div>
-                </form>
-              </Card>
-            </motion.div>
-
-            {/* Contact Info & Actions */}
-            <motion.div
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="space-y-6"
-            >
-              {/* Contact Information */}
-              <Card className="bg-gray-900 border-gray-700 p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Contact Information</h3>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-red-400" />
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-red-600/10 p-3 rounded-lg">
+                      <Phone className="h-6 w-6 text-red-400" />
+                    </div>
                     <div>
-                      <p className="text-gray-300">Email</p>
-                      <p className="text-white">bhargavbhargav995@gmail.com</p>
+                      <p className="text-white font-medium">Phone</p>
+                      <a href="tel:+12164570576" className="text-gray-400 hover:text-red-400 transition-colors">
+                        +1 (216) 457-0576
+                      </a>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-red-400" />
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-red-600/10 p-3 rounded-lg">
+                      <MapPin className="h-6 w-6 text-red-400" />
+                    </div>
                     <div>
-                      <p className="text-gray-300">Phone</p>
-                      <p className="text-white">216-457-0576</p>
+                      <p className="text-white font-medium">Location</p>
+                      <p className="text-gray-400">Cleveland, OH, USA</p>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-red-400" />
-                    <div>
-                      <p className="text-gray-300">Location</p>
-                      <p className="text-white">Cleveland, OH</p>
-                    </div>
-                  </div>
-                </div>
+                </CardContent>
               </Card>
 
               {/* Quick Actions */}
-              <Card className="bg-gray-900 border-gray-700 p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Quick Actions</h3>
+              <Card className="bg-gray-900/50 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white text-xl">Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button onClick={handleScheduleMeeting} className="w-full bg-red-600 hover:bg-red-700 text-white">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    Schedule Meeting
+                  </Button>
 
-                <div className="space-y-3">
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      className="w-full bg-white text-black hover:bg-gray-200 justify-start"
-                      onClick={handleResumeDownload}
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Resume
-                    </Button>
-                  </motion.div>
+                  <Button
+                    onClick={handleWhatsApp}
+                    variant="outline"
+                    className="w-full border-gray-600 text-white hover:bg-gray-800 bg-transparent"
+                  >
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    WhatsApp Me
+                  </Button>
 
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <div className="flex space-x-4 pt-4">
                     <Button
                       variant="outline"
-                      className="w-full border-gray-600 text-white hover:bg-gray-800 justify-start bg-transparent"
-                      onClick={handleScheduleMeeting}
+                      size="sm"
+                      className="flex-1 border-gray-600 text-white hover:bg-gray-800 bg-transparent"
+                      onClick={() => window.open("https://github.com/BharghavaKumarPurru", "_blank")}
                     >
-                      <Calendar className="mr-2 h-4 w-4" />
-                      Schedule Meeting
+                      <Github className="mr-2 h-4 w-4" />
+                      GitHub
                     </Button>
-                  </motion.div>
-                </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 border-gray-600 text-white hover:bg-gray-800 bg-transparent"
+                      onClick={() => window.open("https://linkedin.com/in/bharghavakumarpurru", "_blank")}
+                    >
+                      <Linkedin className="mr-2 h-4 w-4" />
+                      LinkedIn
+                    </Button>
+                  </div>
+                </CardContent>
               </Card>
+            </motion.div>
 
-              {/* Social Links */}
-              <Card className="bg-gray-900 border-gray-700 p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Connect With Me</h3>
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Card className="bg-gray-900/50 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white text-2xl">Send Message</CardTitle>
+                  <CardDescription className="text-gray-400">
+                    Fill out the form below and I'll get back to you soon
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                          Name
+                        </label>
+                        <Input
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="bg-gray-800 border-gray-700 text-white focus:border-red-600"
+                          placeholder="Your name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                          Email
+                        </label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="bg-gray-800 border-gray-700 text-white focus:border-red-600"
+                          placeholder="your.email@example.com"
+                        />
+                      </div>
+                    </div>
 
-                <div className="flex gap-4">
-                  <motion.a
-                    href="https://github.com/BharghavaKumarPurru"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors"
-                  >
-                    <Github className="h-6 w-6 text-white" />
-                  </motion.a>
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                        Subject
+                      </label>
+                      <Input
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        className="bg-gray-800 border-gray-700 text-white focus:border-red-600"
+                        placeholder="What's this about?"
+                      />
+                    </div>
 
-                  <motion.a
-                    href="https://linkedin.com/in/bharghavakumarpurru"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors"
-                  >
-                    <Linkedin className="h-6 w-6 text-white" />
-                  </motion.a>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                        Message
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        rows={6}
+                        className="bg-gray-800 border-gray-700 text-white focus:border-red-600"
+                        placeholder="Tell me about your project or just say hello..."
+                      />
+                    </div>
 
-                  <motion.a
-                    href="mailto:bhargavbhargav995@gmail.com"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors"
-                  >
-                    <Mail className="h-6 w-6 text-white" />
-                  </motion.a>
-                </div>
-              </Card>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white"
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
 
-              {/* Availability Status */}
-              <Card className="bg-gray-900 border-gray-700 p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Availability</h3>
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-green-400 font-medium">Available for new opportunities</span>
-                </div>
-                <p className="text-gray-400 text-sm mt-2">
-                  Currently seeking full-time positions in Full Stack Development
-                </p>
+                    {submitStatus === "success" && (
+                      <div className="text-green-400 text-center">
+                        Message sent successfully! I'll get back to you soon.
+                      </div>
+                    )}
+
+                    {submitStatus === "error" && (
+                      <div className="text-red-400 text-center">
+                        Something went wrong. Please try again or contact me directly.
+                      </div>
+                    )}
+                  </form>
+                </CardContent>
               </Card>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

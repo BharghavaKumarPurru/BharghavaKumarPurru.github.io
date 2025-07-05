@@ -24,7 +24,7 @@ interface ContentRowsProps {
 }
 
 export default function ContentRows({ persona, content }: ContentRowsProps) {
-  if (!content.rows || content.rows.length === 0) {
+  if (!content || !content.rows || content.rows.length === 0) {
     return null
   }
 

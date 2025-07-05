@@ -1,68 +1,90 @@
 "use client"
+
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Navbar from "@/components/navbar"
+import { getPersonaContent } from "@/lib/persona-content"
 import HeroSection from "@/components/hero-section"
 import ContentRows from "@/components/content-rows"
-import AudioPlayer from "@/components/audio-player"
-import ScheduleInterviewModal from "@/components/schedule-interview-modal"
-import { getPersonaContent } from "@/lib/persona-content"
+import Navbar from "@/components/navbar"
 
 interface DashboardPageClientProps {
   persona: string
 }
 
 export default function DashboardPageClient({ persona }: DashboardPageClientProps) {
-  const [showScheduleModal, setShowScheduleModal] = useState(false)
+  const [content, setContent] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const content = getPersonaContent(persona)
+
+  useEffect(() => {
+    try {
+      const personaContent = getPersonaContent(persona)
+      setContent(personaContent)
+    } catch (error) {
+      console.error("Error loading persona content:", error)
+      // Fallback to default content
+      setContent(getPersonaContent("default"))
+    } finally {
+      setLoading(false)
+    }
+  }, [persona])
 
   const handlePrimaryCTA = () => {
     switch (persona) {
       case "recruiter":
-        // Download Resume
-        const link = document.createElement("a")
-        link.href = "/resume/Bharghava_Kumar_Purru_Resume.pdf"
-        link.download = "Bharghava_Kumar_Purru_Resume.pdf"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        // Download resume
+        window.open("/resume/Bharghava_Kumar_Purru_Resume.pdf", "_blank")
         break
       case "tech-stalker":
-        // View Code - Open GitHub repositories
+        // View Code - GitHub repositories
         window.open("https://github.com/BharghavaKumarPurru?tab=repositories", "_blank")
         break
       case "friend":
-        // Let's Chat - Open WhatsApp
-        window.open("https://wa.me/12164570576", "_blank")
+        // Let's Chat - WhatsApp
+        window.open(
+          "https://wa.me/12164570576?text=Hi%20Bharghava!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20chat.",
+          "_blank",
+        )
         break
       default:
-        // Default action
         router.push("/projects")
-        break
     }
   }
 
   const handleSecondaryCTA = () => {
     switch (persona) {
       case "recruiter":
-        // Schedule Interview
-        setShowScheduleModal(true)
+        // Schedule Interview - Open scheduling modal or Calendly
+        window.open("https://calendly.com/bharghavakumarpurru", "_blank")
         break
       case "tech-stalker":
-        // Architecture Docs - Open GitHub repositories
+        // Architecture Docs - GitHub repositories
         window.open("https://github.com/BharghavaKumarPurru?tab=repositories", "_blank")
         break
       case "friend":
-        // Send Message - Navigate to contact page
+        // Send Message - Contact page
         router.push("/contact")
         break
       default:
-        // Default action
         router.push("/contact")
-        break
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    )
+  }
+
+  if (!content) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Content not found</div>
+      </div>
+    )
   }
 
   return (
@@ -70,19 +92,10 @@ export default function DashboardPageClient({ persona }: DashboardPageClientProp
       <Navbar />
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-        <HeroSection
-          persona={persona}
-          content={content.hero}
-          onPrimaryCTA={handlePrimaryCTA}
-          onSecondaryCTA={handleSecondaryCTA}
-        />
-        {content.hero.audioEnabled && <AudioPlayer src={content.hero.audioSrc} title={content.hero.audioTitle} />}
-        <ContentRows persona={persona} rows={content.rows} />
-      </motion.div>
+        <HeroSection content={content.hero} onPrimaryCTA={handlePrimaryCTA} onSecondaryCTA={handleSecondaryCTA} />
 
-      {showScheduleModal && (
-        <ScheduleInterviewModal isOpen={showScheduleModal} onClose={() => setShowScheduleModal(false)} />
-      )}
+        <ContentRows persona={persona} content={content} />
+      </motion.div>
     </div>
   )
 }

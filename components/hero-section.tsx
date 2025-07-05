@@ -1,187 +1,155 @@
 "use client"
 
+import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import ScheduleInterviewModal from "./schedule-interview-modal"
-import AudioPlayer from "./audio-player"
-import { Download, User, Heart, Code, FileText, MessageCircle, Send } from "lucide-react"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { Play, Pause, Volume2 } from "lucide-react"
 
 interface HeroSectionProps {
-  persona: string
-  content: any
+  content: {
+    title: string
+    description: string
+    stats?: Array<{ value: string; label: string }>
+    primaryCTA: string
+    secondaryCTA: string
+    audioEnabled?: boolean
+    audioSrc?: string
+    audioTitle?: string
+  }
+  onPrimaryCTA: () => void
+  onSecondaryCTA: () => void
 }
 
-export default function HeroSection({ persona, content }: HeroSectionProps) {
-  const [showScheduleModal, setShowScheduleModal] = useState(false)
-  const router = useRouter()
+export default function HeroSection({ content, onPrimaryCTA, onSecondaryCTA }: HeroSectionProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-  const handleResumeDownload = () => {
-    const link = document.createElement("a")
-    link.href = "/resume/Bharghava_Kumar_Purru_Resume.pdf"
-    link.download = "Bharghava_Kumar_Purru_Resume.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const handleScheduleInterview = () => {
-    setShowScheduleModal(true)
-  }
-
-  const handleWhatsApp = () => {
-    window.open("https://wa.me/12164570576", "_blank")
-  }
-
-  const handleGitHub = () => {
-    window.open("https://github.com/BharghavaKumarPurru?tab=repositories", "_blank")
-  }
-
-  const handleContactPage = () => {
-    router.push("/contact")
-  }
-
-  const handlePrimaryCTA = () => {
-    if (content.hero.primaryCTA === "Download Resume") {
-      handleResumeDownload()
-    } else if (content.hero.primaryCTA === "View Background") {
-      // Scroll to the first content section
-      const firstSection = document.querySelector('[data-section="first"]')
-      if (firstSection) {
-        firstSection.scrollIntoView({ behavior: "smooth" })
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
       }
-    } else if (content.hero.primaryCTA === "Let's Chat") {
-      handleWhatsApp()
-    } else if (content.hero.primaryCTA === "View Code") {
-      handleGitHub()
+      setIsPlaying(!isPlaying)
     }
   }
 
-  const handleSecondaryCTA = () => {
-    if (content.hero.secondaryCTA === "Schedule Interview") {
-      handleScheduleInterview()
-    } else if (content.hero.secondaryCTA === "Cultural Fit") {
-      // Scroll to leadership/culture section
-      const cultureSection = document.querySelector('[data-section="culture"]')
-      if (cultureSection) {
-        cultureSection.scrollIntoView({ behavior: "smooth" })
-      }
-    } else if (content.hero.secondaryCTA === "Send Message") {
-      handleContactPage()
-    } else if (content.hero.secondaryCTA === "Architecture Docs") {
-      handleGitHub()
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio) {
+      const handleEnded = () => setIsPlaying(false)
+      audio.addEventListener("ended", handleEnded)
+      return () => audio.removeEventListener("ended", handleEnded)
     }
-  }
-
-  const getPrimaryIcon = () => {
-    switch (content.hero.primaryCTA) {
-      case "Download Resume":
-        return <Download className="mr-2 h-5 w-5" />
-      case "View Background":
-        return <User className="mr-2 h-5 w-5" />
-      case "Let's Chat":
-        return <MessageCircle className="mr-2 h-5 w-5" />
-      case "View Code":
-        return <Code className="mr-2 h-5 w-5" />
-      default:
-        return null
-    }
-  }
-
-  const getSecondaryIcon = () => {
-    switch (content.hero.secondaryCTA) {
-      case "Cultural Fit":
-        return <Heart className="mr-2 h-5 w-5" />
-      case "Send Message":
-        return <Send className="mr-2 h-5 w-5" />
-      case "Architecture Docs":
-        return <FileText className="mr-2 h-5 w-5" />
-      default:
-        return null
-    }
-  }
+  }, [])
 
   return (
-    <div className="relative min-h-screen flex items-center justify-start bg-black">
-      {/* Background Image/Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30 z-10" />
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-gray-900 to-black overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,0,0.1),transparent_50%)]" />
+      </div>
 
-      {/* Hero Content */}
-      <div className="relative z-20 max-w-4xl ml-8 md:ml-16 text-white py-20">
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+      <div className="relative z-10 text-center px-8 max-w-6xl mx-auto">
+        {/* Main Title */}
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
+          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 netflix-font tracking-tight"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 netflix-font leading-tight">
-            {content.hero.title}
-          </h1>
+          {content.title}
+        </motion.h1>
 
-          <p className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-300 max-w-3xl leading-relaxed">
-            {content.hero.description}
-          </p>
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-lg md:text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed"
+        >
+          {content.description}
+        </motion.p>
 
-          {content.hero.stats && (
-            <div className="flex flex-wrap gap-4 md:gap-6 mb-10">
-              {content.hero.stats.map((stat: any, index: number) => (
-                <motion.div
-                  key={index}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  className="bg-red-600/20 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4 rounded-lg border border-red-600/30 min-w-[140px]"
-                >
-                  <div className="text-2xl md:text-3xl font-bold text-red-400">{stat.value}</div>
-                  <div className="text-sm md:text-base text-gray-300">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+        {/* Stats */}
+        {content.stats && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 max-w-2xl mx-auto"
+          >
+            {content.stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-red-400 mb-2">{stat.value}</div>
+                <div className="text-sm text-gray-400">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        )}
 
-          <div className="flex flex-wrap gap-4 md:gap-6">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                className="bg-white text-black hover:bg-gray-200 px-8 md:px-10 py-3 md:py-4 text-lg md:text-xl font-semibold"
-                onClick={handlePrimaryCTA}
-              >
-                {getPrimaryIcon()}
-                {content.hero.primaryCTA}
-              </Button>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                className="border-gray-500 text-white hover:bg-gray-800 px-8 md:px-10 py-3 md:py-4 text-lg md:text-xl bg-transparent"
-                onClick={handleSecondaryCTA}
-              >
-                {getSecondaryIcon()}
-                {content.hero.secondaryCTA}
-              </Button>
-            </motion.div>
-          </div>
-
-          {content.hero.audioEnabled && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-              className="mt-8"
+        {/* Audio Player */}
+        {content.audioEnabled && content.audioSrc && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="mb-8"
+          >
+            <Button
+              onClick={toggleAudio}
+              variant="outline"
+              className="bg-gray-900/50 border-gray-700 text-white hover:bg-gray-800 hover:border-red-600"
             >
-              <AudioPlayer audioSrc={content.hero.audioSrc} title={content.hero.audioTitle} />
-            </motion.div>
-          )}
+              <Volume2 className="mr-2 h-4 w-4" />
+              {isPlaying ? <Pause className="mr-2 h-4 w-4" /> : <Play className="mr-2 h-4 w-4" />}
+              {content.audioTitle || "Play Audio"}
+            </Button>
+            <audio ref={audioRef} src={content.audioSrc} preload="metadata" />
+          </motion.div>
+        )}
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          <Button
+            onClick={onPrimaryCTA}
+            size="lg"
+            className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg font-semibold min-w-[200px]"
+          >
+            {content.primaryCTA}
+          </Button>
+          <Button
+            onClick={onSecondaryCTA}
+            variant="outline"
+            size="lg"
+            className="border-gray-600 text-white hover:bg-gray-800 hover:border-red-600 px-8 py-3 text-lg min-w-[200px] bg-transparent"
+          >
+            {content.secondaryCTA}
+          </Button>
         </motion.div>
       </div>
 
-      {/* Background Pattern */}
-      <div className="absolute right-0 top-0 w-1/2 h-full opacity-10 z-0">
-        <div className="w-full h-full bg-gradient-to-l from-red-600/20 to-transparent" />
-      </div>
-
-      <ScheduleInterviewModal isOpen={showScheduleModal} onClose={() => setShowScheduleModal(false)} />
-    </div>
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
+            className="w-1 h-3 bg-red-400 rounded-full mt-2"
+          />
+        </div>
+      </motion.div>
+    </section>
   )
 }
