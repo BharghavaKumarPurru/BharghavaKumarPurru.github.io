@@ -18,7 +18,7 @@ export function getPersonaContent(persona: string) {
           ...baseContent.hero,
           title: "HIRE BHARGHAVA",
           description:
-            "Experienced .NET Developer with 3+ years in designing CMS-driven websites, RESTful services, and responsive web applications. Currently pursuing MS in Computer Science at Case Western Reserve University.",
+            "Experienced .NET Developer with 3+ years in designing CMS-driven websites, RESTful services, and responsive web applications. Graduated with MS in Computer Science from Case Western Reserve University.",
           stats: [
             { value: "3+", label: "Years Experience" },
             { value: "CTO", label: "Current Role" },
@@ -28,7 +28,8 @@ export function getPersonaContent(persona: string) {
           primaryCTA: "Download Resume",
           secondaryCTA: "Schedule Interview",
           audioEnabled: true,
-          audioSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
+          audioSrc:
+            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
           audioTitle: "Listen to my professional summary",
         },
         rows: [
@@ -172,11 +173,12 @@ export function getPersonaContent(persona: string) {
           ...baseContent.hero,
           title: "MEET BHARGHAVA",
           description:
-            "MS Computer Science student at Case Western Reserve University with strong leadership experience as CTO and proven track record in team building and mentoring.",
+            "MS Computer Science graduate from Case Western Reserve University with strong leadership experience as CTO and proven track record in team building and mentoring.",
           primaryCTA: "View Background",
           secondaryCTA: "Cultural Fit",
           audioEnabled: true,
-          audioSrc: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
+          audioSrc:
+            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
           audioTitle: "Hear about my background and culture fit",
         },
         rows: [
@@ -264,9 +266,9 @@ export function getPersonaContent(persona: string) {
             type: "personal",
             items: [
               {
-                title: "MS Student Life",
+                title: "MS Graduate",
                 subtitle: "Case Western Reserve University",
-                description: "Balancing coursework with CTO responsibilities",
+                description: "Recently graduated with MS in Computer Science, now focusing on CTO responsibilities",
               },
               {
                 title: "Cleveland Explorer",

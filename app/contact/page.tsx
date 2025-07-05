@@ -22,6 +22,7 @@ export default function ContactPage() {
     e.preventDefault()
     // Handle form submission
     console.log("Form submitted:", formData)
+    alert("Thank you for your message! I'll get back to you soon.")
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -39,6 +40,12 @@ export default function ContactPage() {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+  }
+
+  // Add the schedule meeting function:
+  const handleScheduleMeeting = () => {
+    // Open Calendly or similar scheduling service
+    window.open("https://calendly.com/bharghavakumarpurru", "_blank")
   }
 
   return (
@@ -182,6 +189,7 @@ export default function ContactPage() {
                     <Button
                       variant="outline"
                       className="w-full border-gray-600 text-white hover:bg-gray-800 justify-start bg-transparent"
+                      onClick={handleScheduleMeeting}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
                       Schedule Meeting
@@ -196,7 +204,9 @@ export default function ContactPage() {
 
                 <div className="flex gap-4">
                   <motion.a
-                    href="#"
+                    href="https://github.com/BharghavaKumarPurru"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors"
@@ -205,7 +215,9 @@ export default function ContactPage() {
                   </motion.a>
 
                   <motion.a
-                    href="#"
+                    href="https://linkedin.com/in/bharghavakumarpurru"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="flex items-center justify-center w-12 h-12 bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors"

@@ -5,11 +5,7 @@ import HeroSection from "@/components/hero-section"
 import ContentRows from "@/components/content-rows"
 import { getPersonaContent } from "@/lib/persona-content"
 
-interface Props {
-  persona: string
-}
-
-export default function DashboardPageClient({ persona }: Props) {
+export default function DashboardPageClient({ persona }: { persona: string }) {
   const content = getPersonaContent(persona)
 
   return (
