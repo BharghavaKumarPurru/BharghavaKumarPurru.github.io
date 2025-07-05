@@ -46,7 +46,7 @@ export function getPersonaContent(persona: string): PersonaContent {
           secondaryCTA: "Schedule Interview",
           audioEnabled: true,
           audioSrc:
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
+            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-y39UTL52G00XBnLPyaCMgkYQpa0ca0.mp3",
           audioTitle: "Listen to my professional summary",
         },
         rows: [
@@ -479,7 +479,7 @@ export function getPersonaContent(persona: string): PersonaContent {
           secondaryCTA: "Cultural Fit",
           audioEnabled: true,
           audioSrc:
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-ciYLS2ttBQEfbEWLP3OziogYgz8Za2.mp3",
+            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bharghava%20Kumar%20Purru_%20_NET%20Development%20%26%20Leadership-y39UTL52G00XBnLPyaCMgkYQpa0ca0.mp3",
           audioTitle: "Hear about my background and culture fit",
         },
         rows: [
