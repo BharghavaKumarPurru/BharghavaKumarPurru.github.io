@@ -1,30 +1,81 @@
-# Netflix-style portfolio
+# Netflix-Style Portfolio
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A modern, interactive portfolio website built with Next.js, featuring a Netflix-inspired design with personalized content for different viewer personas (recruiters, clients, collaborators).
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/bharghavakumarpurrus-projects/v0-netflix-style-portfolio)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/yt23c99bdq8)
+## Features
 
-## Overview
+- 🎬 Netflix-style interface with smooth animations
+- 👥 Multiple viewer personas (Recruiter, Client, Collaborator)
+- 🎵 Interactive audio elements
+- 📱 Fully responsive design
+- 🎨 Modern UI with Tailwind CSS and shadcn/ui
+- ⚡ Built with Next.js 15 and React 19
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Live Demo
+
+Visit the live site: [https://bharghavakumarpurru.github.io/Portfolio.github.io](https://bharghavakumarpurru.github.io/Portfolio.github.io)
+
+## Local Development
+
+1. Clone the repository:
+\`\`\`bash
+git clone https://github.com/BharghavaKumarPurru/Portfolio.github.io.git
+cd Portfolio.github.io
+\`\`\`
+
+2. Install dependencies:
+\`\`\`bash
+npm install
+\`\`\`
+
+3. Run the development server:
+\`\`\`bash
+npm run dev
+\`\`\`
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deployment
 
-Your project is live at:
+This project is automatically deployed to GitHub Pages using GitHub Actions. Every push to the `main` branch triggers a new deployment.
 
-**[https://vercel.com/bharghavakumarpurrus-projects/v0-netflix-style-portfolio](https://vercel.com/bharghavakumarpurrus-projects/v0-netflix-style-portfolio)**
+### Manual Deployment
 
-## Build your app
+To deploy manually:
 
-Continue building your app on:
+\`\`\`bash
+npm run build
+npm run deploy
+\`\`\`
 
-**[https://v0.dev/chat/projects/yt23c99bdq8](https://v0.dev/chat/projects/yt23c99bdq8)**
+## Project Structure
 
-## How It Works
+\`\`\`
+├── app/                    # Next.js app directory
+├── components/            # Reusable React components
+├── lib/                   # Utility functions and configurations
+├── public/               # Static assets
+├── styles/               # Global styles
+└── .github/workflows/    # GitHub Actions workflows
+\`\`\`
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Technologies Used
+
+- **Framework**: Next.js 15
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: GitHub Pages
+- **CI/CD**: GitHub Actions
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

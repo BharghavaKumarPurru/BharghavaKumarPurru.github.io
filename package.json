@@ -1,10 +1,14 @@
 {
-  "name": "my-v0-project",
+  "name": "netflix-portfolio",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://bharghavakumarpurru.github.io/Portfolio.github.io",
   "scripts": {
     "build": "next build",
+    "predeploy": "npm run build",
+    "deploy": "npm run build && touch out/.nojekyll && gh-pages -d out",
     "dev": "next dev",
+    "export": "next build && next export",
     "lint": "next lint",
     "start": "next start"
   },
@@ -65,6 +69,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"

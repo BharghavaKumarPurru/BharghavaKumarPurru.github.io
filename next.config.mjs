@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  distDir: 'out',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,6 +13,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio.github.io' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio.github.io' : '',
 }
 
 export default nextConfig
