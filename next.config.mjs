@@ -13,7 +13,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove basePath and assetPrefix since you're using the main github.io domain
+  // No basePath needed since you're using the main github.io domain
   assetPrefix: '',
   basePath: '',
 }
