@@ -16,24 +16,22 @@ export default function AudioPlayer({ audioSrc, title }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const togglePlay = async () => {
-    const audio = audioRef.current
-    if (!audio) return
-
+    const audio = audioRef.current;
+    if (!audio) return;
+  
     if (audio.paused) {
       try {
-        await audio.play()
-        // isPlaying will become true in onPlay
+        await audio.play(); // ✅ triggered by user interaction
+        // isPlaying state will be updated by onPlay
       } catch (err) {
-          console.error("Error while trying to play audio:", err);
-          alert("Unable to play audio. Please ensure your browser allows media playback.");
-        }
-
+        console.error("Error while trying to play audio:", err);
       }
     } else {
-      audio.pause()
-      // isPlaying will become false in onPause
+      audio.pause();
+      // isPlaying state will be updated by onPause
     }
-  }
+  };
+
 
   const toggleMute = () => {
     if (audioRef.current) {
