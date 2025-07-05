@@ -84,9 +84,10 @@ export default function HeroSection({ persona, content }: HeroSectionProps) {
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
                 <AudioPlayer
-                  src={content.hero.audioSrc}
+                  audioSrc={content.hero.audioSrc}
                   title={content.hero.audioTitle || "Professional Summary"}
                 />
+
               </motion.div>
             )}
 

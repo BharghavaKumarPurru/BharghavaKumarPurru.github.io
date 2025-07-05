@@ -24,7 +24,10 @@ export default function AudioPlayer({ audioSrc, title }: AudioPlayerProps) {
         await audio.play()
         // isPlaying will become true in onPlay
       } catch (err) {
-        console.error("Error while trying to play audio:", err)
+          console.error("Error while trying to play audio:", err);
+          alert("Unable to play audio. Please ensure your browser allows media playback.");
+        }
+
       }
     } else {
       audio.pause()
@@ -48,6 +51,7 @@ export default function AudioPlayer({ audioSrc, title }: AudioPlayerProps) {
       <audio
         ref={audioRef}
         src={audioSrc}
+        preload="none"
         onEnded={handleAudioEnd}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
