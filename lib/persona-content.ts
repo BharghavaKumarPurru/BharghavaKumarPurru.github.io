@@ -43,7 +43,6 @@ export function getPersonaContent(persona: string) {
                 description:
                   "Automated document management system with AI routing and approval workflows for departments like HR, Finance, and Management.",
                 tech: ["React.js", "TypeScript", ".NET Core", "SQL Server"],
-                image: "/placeholder.svg?height=200&width=300",
                 features: [
                   "AI-powered document routing to appropriate departments",
                   "Seamless approval/rejection workflow with feedback system",
@@ -62,7 +61,6 @@ export function getPersonaContent(persona: string) {
                 description:
                   "PDF-powered chatbot using LangChain and ChatGPT API for company-related queries with Huggingface integration.",
                 tech: ["Python", "Streamlit", "LangChain", "ChatGPT API", "Huggingface"],
-                image: "/placeholder.svg?height=200&width=300",
                 features: [
                   "PDF analysis and interactive company information",
                   "Optimized chatbot for efficient, accurate responses",
@@ -77,7 +75,6 @@ export function getPersonaContent(persona: string) {
                 description:
                   "Interactive resume platform with dynamic content, visitor analytics, and Azure OpenAI-powered chatbot.",
                 tech: [".NET Core", "Azure OpenAI", "Cosmos DB", "Blob Storage", "Azure Functions"],
-                image: "/placeholder.svg?height=200&width=300",
                 features: [
                   "Dynamic content and visitor analytics",
                   "Azure OpenAI-powered chatbot for resume queries",
@@ -85,21 +82,6 @@ export function getPersonaContent(persona: string) {
                   "Robust testing using xUnit framework",
                 ],
                 date: "11-2024",
-              },
-              {
-                title: "University Class Automation System",
-                role: "Automation Developer",
-                description:
-                  "Automated system for university class schedules with Excel processing and real-time notifications.",
-                tech: ["Selenium", "C#", "ClosedXML", "Windows Task Scheduler"],
-                image: "/placeholder.svg?height=200&width=300",
-                features: [
-                  "Automated login and class schedule processing",
-                  "Excel integration with ClosedXML for data handling",
-                  "Secure credential management and email notifications",
-                  "Scheduled execution via Windows Task Scheduler",
-                ],
-                date: "01-2025",
               },
             ],
           },
@@ -121,12 +103,6 @@ export function getPersonaContent(persona: string) {
                 icon: "DEV",
               },
               {
-                title: "Web Developer Intern",
-                subtitle: "Waverly Partners (April 2025 - May 2025)",
-                description: "Built responsive React features and AI-powered job portal with BERT-based NLP",
-                icon: "WEB",
-              },
-              {
                 title: "Full Stack .NET Developer",
                 subtitle: "HCL Technologies (July 2022 - Dec 2023)",
                 description: "Developed content-driven web applications using Umbraco CMS and ASP.NET Core",
@@ -142,25 +118,6 @@ export function getPersonaContent(persona: string) {
               { title: "React.js", subtitle: "Expert level", icon: "REACT" },
               { title: "Umbraco CMS", subtitle: "Professional", icon: "CMS" },
               { title: "Azure Cloud", subtitle: "DevOps & Services", icon: "AZURE" },
-              { title: "SQL Server", subtitle: "Database Design", icon: "SQL" },
-              { title: "JavaScript", subtitle: "ES6+", icon: "JS" },
-              { title: "RESTful APIs", subtitle: "Design & Integration", icon: "API" },
-              { title: "CI/CD", subtitle: "GitHub Actions", icon: "CICD" },
-            ],
-          },
-          {
-            title: "Education & Certifications",
-            type: "education",
-            items: [
-              {
-                title: "MS Computer Science",
-                subtitle: "Case Western Reserve University (2023-2025)",
-                description: "Focus on Software Engineering and Distributed Systems",
-                icon: "MS",
-              },
-              { title: "Microsoft C# Certified", subtitle: "Programming Language", icon: "CERT" },
-              { title: "Postman API Student Expert", subtitle: "API Testing", icon: "API" },
-              { title: "Docker Certified", subtitle: "Container Technology", icon: "DOCKER" },
             ],
           },
         ],
@@ -198,12 +155,6 @@ export function getPersonaContent(persona: string) {
                 description: "Supported 60+ students on systems architecture and distributed design",
                 icon: "TA",
               },
-              {
-                title: "Research Assistant",
-                subtitle: "Case Western Reserve University (July 2024 - Jan 2025)",
-                description: "Built web-based privacy-preserving data modeling tools",
-                icon: "RA",
-              },
             ],
           },
           {
@@ -217,33 +168,11 @@ export function getPersonaContent(persona: string) {
                 icon: "LEAD",
               },
               {
-                title: "Agile Collaboration",
-                subtitle: "Cross-team coordination",
-                description: "Led stand-ups, code reviews, and engineering standards across multiple platforms",
-                icon: "AGILE",
-              },
-              {
                 title: "Mentoring",
                 subtitle: "Student & Team Development",
                 description: "Provided in-depth support for 60+ students and junior developers",
                 icon: "MENTOR",
               },
-              {
-                title: "Process Improvement",
-                subtitle: "40% efficiency gain",
-                description: "Established CI/CD pipelines reducing deployment time and increasing stability",
-                icon: "PROCESS",
-              },
-            ],
-          },
-          {
-            title: "Communication & Soft Skills",
-            type: "skills",
-            items: [
-              { title: "Technical Writing", subtitle: "Documentation & Guides", icon: "WRITE" },
-              { title: "Cross-functional Teams", subtitle: "Designers, QA, DevOps", icon: "TEAM" },
-              { title: "Client Communication", subtitle: "Stakeholder Management", icon: "COMM" },
-              { title: "Problem Solving", subtitle: "Analytical Thinking", icon: "SOLVE" },
             ],
           },
         ],
@@ -275,16 +204,6 @@ export function getPersonaContent(persona: string) {
                 subtitle: "Discovering Ohio",
                 description: "From India to Cleveland - loving the journey!",
               },
-              {
-                title: "Tech Enthusiast",
-                subtitle: "Always Learning",
-                description: "Currently diving deep into Azure and AI",
-              },
-              {
-                title: "Team Builder",
-                subtitle: "People Person",
-                description: "Love mentoring and building great teams",
-              },
             ],
           },
           {
@@ -296,35 +215,11 @@ export function getPersonaContent(persona: string) {
                 subtitle: "AI Integration",
                 description: "Building intelligent chatbots and automation",
               },
-              { title: "React Native", subtitle: "Mobile Development", description: "Cross-platform mobile apps" },
               {
-                title: "Umbraco Cloud",
-                subtitle: "CMS Mastery",
-                description: "Advanced content management solutions",
+                title: "React Native",
+                subtitle: "Mobile Development",
+                description: "Cross-platform mobile apps",
               },
-              {
-                title: "Leadership",
-                subtitle: "CTO Skills",
-                description: "Team management and technical strategy",
-              },
-            ],
-          },
-          {
-            title: "Fun Facts",
-            type: "fun",
-            items: [
-              {
-                title: "From India to USA",
-                subtitle: "Global Perspective",
-                description: "Bringing diverse experiences to tech",
-              },
-              { title: "Teaching & Learning", subtitle: "Academic Life", description: "TA by day, CTO by night" },
-              {
-                title: "Problem Solver",
-                subtitle: "Fix Everything",
-                description: "From code bugs to team challenges",
-              },
-              { title: "Future Goals", subtitle: "Big Dreams", description: "Building the next big thing in tech" },
             ],
           },
         ],
@@ -364,55 +259,6 @@ export function getPersonaContent(persona: string) {
                 description: "Scalable API development and microservices architecture",
                 tech: [".NET Core", "ASP.NET Core", "C#", "RESTful APIs", "Entity Framework"],
               },
-              {
-                title: "CMS & Content Management",
-                subtitle: "Umbraco Cloud, Razor, Forms",
-                description: "Content-driven applications with dynamic rendering",
-                tech: ["Umbraco Cloud", "Umbraco Forms", "Razor", "Bootstrap", "AJAX"],
-              },
-              {
-                title: "Cloud & DevOps",
-                subtitle: "Azure, CI/CD, Automation",
-                description: "Cloud-native solutions with automated deployment pipelines",
-                tech: ["Azure", "GitHub Actions", "Azure DevOps", "CI/CD", "Playwright"],
-              },
-            ],
-          },
-          {
-            title: "Recent Project Deep Dives",
-            type: "projects-detailed",
-            items: [
-              {
-                title: "HIPAA-Compliant Mental Wellness Platform",
-                subtitle: "Multi-platform architecture",
-                description:
-                  "Led end-to-end architecture across Umbraco CMS, React Native, Next.js, .NET Web API, and Supabase",
-                tech: ["Umbraco CMS", "React Native", "Next.js", ".NET Web API", "Supabase"],
-                metrics: [
-                  { value: "40%", label: "Deployment Time Reduction" },
-                  { value: "HIPAA", label: "Compliance Achieved" },
-                ],
-              },
-              {
-                title: "AI-Powered Document Management",
-                subtitle: "Intelligent automation system",
-                description: "Built AI routing system for document management with approval workflows",
-                tech: ["React.js", "TypeScript", ".NET Core", "SQL Server", "AI Integration"],
-                metrics: [
-                  { value: "100%", label: "Automation Rate" },
-                  { value: "50%", label: "Processing Time Saved" },
-                ],
-              },
-              {
-                title: "Cross-Platform Mobile Apps",
-                subtitle: "React Native & .NET Integration",
-                description: "Dating app with real-time chat and construction reporting app for incident tracking",
-                tech: ["React Native", ".NET Web API", "Real-time Chat", "Cloud Authentication"],
-                metrics: [
-                  { value: "15%", label: "Deployment Issues Reduced" },
-                  { value: "2", label: "Distinct Products Built" },
-                ],
-              },
             ],
           },
           {
@@ -428,42 +274,6 @@ export function getPersonaContent(persona: string) {
                 title: "HIPAA Compliance",
                 subtitle: "Security & Privacy",
                 description: "Built secure, encrypted communication systems",
-              },
-              {
-                title: "Cross-Platform Expertise",
-                subtitle: "Mobile & Web",
-                description: "React Native, Next.js, and .NET integration",
-              },
-              {
-                title: "Team Leadership",
-                subtitle: "Hiring & Mentoring",
-                description: "Built cross-functional team improving delivery velocity",
-              },
-            ],
-          },
-          {
-            title: "Architecture Patterns & Best Practices",
-            type: "patterns",
-            items: [
-              {
-                title: "Component-Based Architecture",
-                subtitle: "Reusable UI Components",
-                description: "React and Angular component libraries",
-              },
-              {
-                title: "RESTful API Design",
-                subtitle: "Scalable Backend Services",
-                description: ".NET Core Web APIs with proper HTTP semantics",
-              },
-              {
-                title: "Content-Driven Development",
-                subtitle: "CMS Integration",
-                description: "Umbraco-powered dynamic content rendering",
-              },
-              {
-                title: "Cloud-Native Solutions",
-                subtitle: "Azure Integration",
-                description: "Serverless functions, blob storage, and managed databases",
               },
             ],
           },

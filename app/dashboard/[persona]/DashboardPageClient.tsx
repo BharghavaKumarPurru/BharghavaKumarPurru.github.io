@@ -1,5 +1,5 @@
 "use client"
-
+import { motion } from "framer-motion"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Navbar from "@/components/navbar"
@@ -7,15 +7,16 @@ import HeroSection from "@/components/hero-section"
 import ContentRows from "@/components/content-rows"
 import AudioPlayer from "@/components/audio-player"
 import ScheduleInterviewModal from "@/components/schedule-interview-modal"
+import { getPersonaContent } from "@/lib/persona-content"
 
 interface DashboardPageClientProps {
-  content: any
   persona: string
 }
 
-export default function DashboardPageClient({ content, persona }: DashboardPageClientProps) {
+export default function DashboardPageClient({ persona }: DashboardPageClientProps) {
   const [showScheduleModal, setShowScheduleModal] = useState(false)
   const router = useRouter()
+  const content = getPersonaContent(persona)
 
   const handlePrimaryCTA = () => {
     switch (persona) {
@@ -68,11 +69,16 @@ export default function DashboardPageClient({ content, persona }: DashboardPageC
     <div className="min-h-screen bg-black">
       <Navbar />
 
-      <HeroSection content={content.hero} onPrimaryCTA={handlePrimaryCTA} onSecondaryCTA={handleSecondaryCTA} />
-
-      {content.hero.audioEnabled && <AudioPlayer src={content.hero.audioSrc} title={content.hero.audioTitle} />}
-
-      <ContentRows rows={content.rows} />
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+        <HeroSection
+          persona={persona}
+          content={content.hero}
+          onPrimaryCTA={handlePrimaryCTA}
+          onSecondaryCTA={handleSecondaryCTA}
+        />
+        {content.hero.audioEnabled && <AudioPlayer src={content.hero.audioSrc} title={content.hero.audioTitle} />}
+        <ContentRows persona={persona} rows={content.rows} />
+      </motion.div>
 
       {showScheduleModal && (
         <ScheduleInterviewModal isOpen={showScheduleModal} onClose={() => setShowScheduleModal(false)} />
