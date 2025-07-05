@@ -1,0 +1,75 @@
+"use client"
+
+import { useState, useRef } from "react"
+import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { Volume2, VolumeX, Play, Pause } from "lucide-react"
+
+interface AudioPlayerProps {
+  audioSrc: string
+  title: string
+}
+
+export default function AudioPlayer({ audioSrc, title }: AudioPlayerProps) {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !isMuted
+      setIsMuted(!isMuted)
+    }
+  }
+
+  const handleAudioEnd = () => {
+    setIsPlaying(false)
+  }
+
+  return (
+    <div className="flex items-center gap-3 bg-gray-800/50 backdrop-blur-sm rounded-lg p-3 border border-gray-700">
+      <audio
+        ref={audioRef}
+        src={audioSrc}
+        onEnded={handleAudioEnd}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={togglePlay}
+          className="text-white hover:text-red-400 hover:bg-red-600/20"
+        >
+          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+        </Button>
+      </motion.div>
+
+      <span className="text-sm text-gray-300 flex-1">{title}</span>
+
+      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleMute}
+          className="text-white hover:text-red-400 hover:bg-red-600/20"
+        >
+          {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+        </Button>
+      </motion.div>
+    </div>
+  )
+}

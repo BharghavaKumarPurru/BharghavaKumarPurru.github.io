@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 100% 43%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 34%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 34%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 34%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 34%;
+    --input: 0 0% 34%;
+    --ring: 0 100% 43%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Netflix Colors */
+.netflix-red {
+  background: #db0000;
+}
+.netflix-black {
+  background: #000000;
+}
+.netflix-white {
+  background: #ffffff;
+}
+.netflix-gray {
+  background: #564d4d;
+}
+.netflix-dark-red {
+  background: #831010;
+}
+
+.netflix-font {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Netflix Intro Animation Container */
+.netflix-intro-container {
+  font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 7vw; /* Reduced from 10vw */
+  background-color: #000000;
+  box-shadow: 0 0 300px 10px rgba(0, 0, 0, 0.4) inset;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.name {
+  color: transparent;
+  letter-spacing: 0.3vw; /* Further reduced letter spacing */
+  display: flex;
+  perspective: 600px;
+  animation: grow 1s ease forwards;
+  font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  max-width: 99vw; /* Use almost full viewport */
+  justify-content: center;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.container {
+  transform-style: preserve-3d;
+  flex-shrink: 0;
+  display: inline-block; /* Ensure proper inline display */
+}
+
+.character {
+  color: white;
+  font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  display: block;
+  white-space: nowrap; /* Prevent character wrapping */
+}
+
+/* Animation Keyframes */
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+    color: transparent;
+  }
+  10% {
+    color: white;
+  }
+  50% {
+    transform: scale(1.1);
+    color: white;
+  }
+  100% {
+    transform: scale(0.9);
+    color: white;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes long-shadow {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow:
+      1px 1.5px #9ca5b4, 2px 3px #9ca5b4, 3px 4.5px #9ca5b4, 4px 6px #9ca5b4, 5px 7.5px #9ca5b4,
+      6px 9px #9ca5b4, 7px 10.5px #9ca5b4, 8px 12px #9ca5b4, 9px 13.5px #9ca5b4, 10px 15px #9ca5b4,
+      11px 16.5px #9ca5b4, 12px 18px #9ca5b4, 13px 19.5px #9ca5b4, 14px 21px #9ca5b4, 15px 22.5px #9ca5b4,
+      16px 24px #9ca5b4, 17px 25.5px #9ca5b4, 18px 27px #9ca5b4, 19px 28.5px #9ca5b4, 20px 30px #9ca5b4,
+      21px 31.5px #9ca5b4, 22px 33px #9ca5b4, 23px 34.5px #9ca5b4, 24px 36px #9ca5b4, 25px 37.5px #9ca5b4,
+      26px 39px #9ca5b4, 27px 40.5px #9ca5b4, 28px 42px #9ca5b4, 29px 43.5px #9ca5b4, 30px 45px #9ca5b4,
+      31px 46.5px #9ca5b4, 32px 48px #9ca5b4, 33px 49.5px #9ca5b4, 34px 51px #9ca5b4, 35px 52.5px #9ca5b4,
+      36px 54px #9ca5b4, 37px 55.5px #9ca5b4, 38px 57px #9ca5b4, 39px 58.5px #9ca5b4, 40px 60px #9ca5b4,
+      41px 61.5px #9ca5b4, 42px 63px #9ca5b4, 43px 64.5px #9ca5b4, 44px 66px #9ca5b4, 45px 67.5px #9ca5b4,
+      46px 69px #9ca5b4, 47px 70.5px #9ca5b4, 48px 72px #9ca5b4, 49px 73.5px #9ca5b4, 50px 75px #9ca5b4,
+      51px 76.5px #9ca5b4, 52px 78px #9ca5b4, 53px 79.5px #9ca5b4, 54px 81px #9ca5b4, 55px 82.5px #9ca5b4,
+      56px 84px #9ca5b4, 57px 85.5px #9ca5b4, 58px 87px #9ca5b4, 59px 88.5px #9ca5b4, 60px 90px #9ca5b4,
+      61px 91.5px #9ca5b4, 62px 93px #9ca5b4, 63px 94.5px #9ca5b4, 64px 96px #9ca5b4, 65px 97.5px #9ca5b4,
+      66px 99px #9ca5b4, 67px 100.5px #9ca5b4, 68px 102px #9ca5b4, 69px 103.5px #9ca5b4, 70px 105px #9ca5b4,
+      71px 106.5px #9ca5b4, 72px 108px #9ca5b4, 73px 109.5px #9ca5b4, 74px 111px #9ca5b4, 75px 112.5px #9ca5b4,
+      76px 114px #9ca5b4, 77px 115.5px #9ca5b4, 78px 117px #9ca5b4, 79px 118.5px #9ca5b4, 80px 120px #9ca5b4,
+      81px 121.5px #9ca5b4, 82px 123px #9ca5b4, 83px 124.5px #9ca5b4, 84px 126px #9ca5b4, 85px 127.5px #9ca5b4,
+      86px 129px #9ca5b4, 87px 130.5px #9ca5b4, 88px 132px #9ca5b4, 89px 133.5px #9ca5b4, 90px 135px #9ca5b4,
+      91px 136.5px #9ca5b4, 92px 138px #9ca5b4, 93px 139.5px #9ca5b4, 94px 141px #9ca5b4, 95px 142.5px #9ca5b4,
+      96px 144px #9ca5b4, 97px 145.5px #9ca5b4, 98px 147px #9ca5b4, 99px 148.5px #9ca5b4, 100px 150px #9ca5b4,
+      10px 10px 100px #c2c1c2;
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.glow-effect {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px #db0000, 0 0 30px #db0000, 0 0 40px #db0000;
+  }
+  to {
+    text-shadow: 0 0 30px #db0000, 0 0 40px #db0000, 0 0 50px #db0000;
+  }
+}
+
+.carousel-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
