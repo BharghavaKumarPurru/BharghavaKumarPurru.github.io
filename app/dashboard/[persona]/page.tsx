@@ -1,25 +1,12 @@
-"use client"
+import DashboardPageClient from "./DashboardPageClient"
 
-import { useParams } from "next/navigation"
-import { motion } from "framer-motion"
-import Navbar from "@/components/navbar"
-import HeroSection from "@/components/hero-section"
-import ContentRows from "@/components/content-rows"
-import { getPersonaContent } from "@/lib/persona-content"
+// Generate static params for all personas
+export async function generateStaticParams() {
+  return [{ persona: "recruiter" }, { persona: "client" }, { persona: "collaborator" }]
+}
 
-export default function DashboardPage() {
-  const params = useParams()
-  const persona = params.persona as string
-  const content = getPersonaContent(persona)
+export default function DashboardPage({ params }: { params: { persona: string } }) {
+  const persona = params.persona
 
-  return (
-    <div className="min-h-screen bg-black">
-      <Navbar />
-
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-        <HeroSection persona={persona} content={content} />
-        <ContentRows persona={persona} content={content} />
-      </motion.div>
-    </div>
-  )
+  return <DashboardPageClient persona={persona} />
 }
