@@ -1,12 +1,15 @@
 import DashboardPageClient from "./DashboardPageClient"
 
-// Generate static params for all personas
 export async function generateStaticParams() {
   return [{ persona: "recruiter" }, { persona: "hr" }, { persona: "friend" }, { persona: "tech-stalker" }]
 }
 
-export default function DashboardPage({ params }: { params: { persona: string } }) {
-  const persona = params.persona
+interface PageProps {
+  params: Promise<{ persona: string }>
+}
+
+export default async function DashboardPage({ params }: PageProps) {
+  const { persona } = await params
 
   return <DashboardPageClient persona={persona} />
 }
