@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: Deploy Next.js site to GitHub Pages
 
 on:
   push:
@@ -30,9 +30,11 @@ jobs:
         run: npm install
 
       - name: Build Next.js app
-        run: npm run build && npm run export
+        run: |
+          npm run build
+          npm run export
 
-      - name: Upload artifact
+      - name: Upload static site to Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
