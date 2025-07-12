@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Bharghava Kumar Purru - Netflix Style Portfolio",
+  title: "Spying on me???",
   description:
     "A modern, interactive portfolio website featuring a Netflix-inspired design with personalized content for different viewer personas.",
   keywords: ["portfolio", "developer", "next.js", "react", "netflix", "bharghava kumar purru"],
