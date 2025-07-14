@@ -8,7 +8,7 @@ import Link from "next/link"
 export default function ResumePage() {
   const handleResumeDownload = () => {
     const link = document.createElement("a")
-    link.href = "/app/resume/Bharghava_Kumar_Purru_Resume.pdf"
+    link.href = "/resume/Bharghava_Kumar_Purru_Resume.pdf"
     link.download = "Bharghava_Kumar_Purru_Resume.pdf"
     document.body.appendChild(link)
     link.click()
