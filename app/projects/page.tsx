@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+
+import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import Navbar from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Github, ExternalLink, Filter } from "lucide-react"
+import { Github, ExternalLink, Filter, ChevronLeft, ChevronRight } from "lucide-react"
 
 const projects = [
   {
@@ -77,19 +79,112 @@ const projects = [
     demo: "#",
     featured: false,
   },
+  {
+    id: 7,
+    title: "Trauma-Informed Domestic Violence App",
+    description: "React Native app with encrypted local storage, evidence management, and crisis resources.",
+    image: "/placeholder.svg?height=300&width=400",
+    tech: ["React Native", "Supabase", "Encryption", "SQLite"],
+    category: "Mobile",
+    github: "#",
+    demo: "#",
+    featured: true,
+  },
+  {
+    id: 8,
+    title: "Construction Reporting Tool",
+    description: "Mobile tool for field workers to capture geotagged job data with offline-first storage.",
+    image: "/placeholder.svg?height=300&width=400",
+    tech: ["React Native", "SQLite", "Geolocation", "RBAC"],
+    category: "Mobile",
+    github: "#",
+    demo: "#",
+    featured: false,
+  },
 ]
 
-const categories = ["All", "Full Stack", "AI/ML", "Enterprise", "Backend", "Frontend", "DevOps"]
+const categories = ["All", "Full Stack", "AI/ML", "Enterprise", "Backend", "Frontend", "DevOps", "Mobile"]
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [showFeatured, setShowFeatured] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [scrollLeft, setScrollLeft] = useState(0)
 
   const filteredProjects = projects.filter((project) => {
     const categoryMatch = selectedCategory === "All" || project.category === selectedCategory
     const featuredMatch = !showFeatured || project.featured
     return categoryMatch && featuredMatch
   })
+
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
+    }
+  }
+
+  const scrollTo = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = 320 // Approximate card width + gap
+      const scrollAmount = cardWidth * 3
+      const newScrollLeft =
+        direction === "left" ? scrollRef.current.scrollLeft - scrollAmount : scrollRef.current.scrollLeft + scrollAmount
+
+      scrollRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      })
+    }
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scrollRef.current) {
+      setIsDragging(true)
+      setStartX(e.pageX - scrollRef.current.offsetLeft)
+      setScrollLeft(scrollRef.current.scrollLeft)
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return
+    e.preventDefault()
+    const x = e.pageX - scrollRef.current.offsetLeft
+    const walk = (x - startX) * 2
+    scrollRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        scrollTo("left")
+      } else if (e.key === "ArrowRight") {
+        scrollTo("right")
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  useEffect(() => {
+    checkScrollButtons()
+    const handleScroll = () => checkScrollButtons()
+
+    if (scrollRef.current) {
+      scrollRef.current.addEventListener("scroll", handleScroll)
+      return () => scrollRef.current?.removeEventListener("scroll", handleScroll)
+    }
+  }, [filteredProjects])
 
   return (
     <div className="min-h-screen bg-black">
@@ -152,68 +247,123 @@ export default function ProjectsPage() {
             </Button>
           </motion.div>
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="card-hover"
+          {/* Netflix-style Horizontal Scroll */}
+          <div className="relative group">
+            {/* Left Arrow */}
+            {canScrollLeft && (
+              <Button
+                variant="ghost"
+                size="lg"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black/90 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full backdrop-blur-sm"
+                onClick={() => scrollTo("left")}
               >
-                <Card className="bg-gray-900 border-gray-700 hover:border-red-500 overflow-hidden group">
-                  <div className="relative aspect-video overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                <ChevronLeft className="h-6 w-6" />
+              </Button>
+            )}
 
-                    {project.featured && (
-                      <Badge className="absolute top-3 left-3 bg-red-600 hover:bg-red-700">Featured</Badge>
-                    )}
+            {/* Right Arrow */}
+            {canScrollRight && (
+              <Button
+                variant="ghost"
+                size="lg"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black/90 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full backdrop-blur-sm"
+                onClick={() => scrollTo("right")}
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Button>
+            )}
 
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                      <Button size="sm" className="bg-white text-black hover:bg-gray-200">
-                        <Github className="h-4 w-4 mr-2" />
-                        Code
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-white text-white hover:bg-white hover:text-black bg-transparent"
-                      >
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        Demo
-                      </Button>
+            {/* Left Fade Edge */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black to-transparent z-[5] pointer-events-none" />
+
+            {/* Right Fade Edge */}
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black to-transparent z-[5] pointer-events-none" />
+
+            {/* Scrollable Container */}
+            <div
+              ref={scrollRef}
+              className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4 cursor-grab active:cursor-grabbing"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                WebkitScrollbar: { display: "none" },
+              }}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+            >
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  className="flex-none w-80 snap-start"
+                >
+                  <Card className="bg-gray-900 border-gray-700 hover:border-red-500 overflow-hidden group transition-all duration-300 hover:scale-105 h-full">
+                    <div className="relative aspect-video overflow-hidden">
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
+                      />
+
+                      {project.featured && (
+                        <Badge className="absolute top-3 left-3 bg-red-600 hover:bg-red-700">Featured</Badge>
+                      )}
+
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                        <Button size="sm" className="bg-white text-black hover:bg-gray-200">
+                          <Github className="h-4 w-4 mr-2" />
+                          Code
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-white text-white hover:bg-white hover:text-black bg-transparent"
+                        >
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Demo
+                        </Button>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-white group-hover:text-red-400 transition-colors">
-                        {project.title}
-                      </h3>
-                      <Badge variant="outline" className="border-gray-600 text-gray-400">
-                        {project.category}
-                      </Badge>
-                    </div>
-
-                    <p className="text-gray-400 mb-4 leading-relaxed">{project.description}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, i) => (
-                        <Badge key={i} variant="secondary" className="bg-red-600/20 text-red-400 hover:bg-red-600/30">
-                          {tech}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-semibold text-white group-hover:text-red-400 transition-colors line-clamp-2">
+                          {project.title}
+                        </h3>
+                        <Badge variant="outline" className="border-gray-600 text-gray-400 flex-shrink-0 ml-2">
+                          {project.category}
                         </Badge>
-                      ))}
+                      </div>
+
+                      <p className="text-gray-400 mb-4 leading-relaxed line-clamp-3">{project.description}</p>
+
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.slice(0, 4).map((tech, i) => (
+                          <Badge
+                            key={i}
+                            variant="secondary"
+                            className="bg-red-600/20 text-red-400 hover:bg-red-600/30 text-xs"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.tech.length > 4 && (
+                          <Badge variant="secondary" className="bg-gray-600/20 text-gray-400 text-xs">
+                            +{project.tech.length - 4}
+                          </Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {filteredProjects.length === 0 && (
@@ -223,6 +373,28 @@ export default function ProjectsPage() {
           )}
         </div>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   )
 }

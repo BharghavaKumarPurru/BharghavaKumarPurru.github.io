@@ -1,7 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import type React from "react"
+
+import { useState, useRef, useEffect } from "react"
+import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Play, Award, ExternalLink, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -13,18 +15,14 @@ interface ContentCarouselProps {
 }
 
 export default function ContentCarousel({ items, type }: ContentCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedItem, setSelectedItem] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const itemsPerView = 4
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + itemsPerView >= items.length ? 0 : prev + itemsPerView))
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? Math.max(0, items.length - itemsPerView) : prev - itemsPerView))
-  }
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [scrollLeft, setScrollLeft] = useState(0)
 
   const handleItemClick = (item: any) => {
     setSelectedItem(item)
@@ -36,18 +34,100 @@ export default function ContentCarousel({ items, type }: ContentCarouselProps) {
     setSelectedItem(null)
   }
 
-  const visibleItems = items.slice(currentIndex, currentIndex + itemsPerView)
+  const checkScrollButtons = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
+    }
+  }
+
+  const scrollTo = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = 320 // Approximate card width + gap
+      const scrollAmount = cardWidth * 3
+      const newScrollLeft =
+        direction === "left" ? scrollRef.current.scrollLeft - scrollAmount : scrollRef.current.scrollLeft + scrollAmount
+
+      scrollRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      })
+    }
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scrollRef.current) {
+      setIsDragging(true)
+      setStartX(e.pageX - scrollRef.current.offsetLeft)
+      setScrollLeft(scrollRef.current.scrollLeft)
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return
+    e.preventDefault()
+    const x = e.pageX - scrollRef.current.offsetLeft
+    const walk = (x - startX) * 2
+    scrollRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (scrollRef.current) {
+      setIsDragging(true)
+      setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft)
+      setScrollLeft(scrollRef.current.scrollLeft)
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !scrollRef.current) return
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft
+    const walk = (x - startX) * 2
+    scrollRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleTouchEnd = () => {
+    setIsDragging(false)
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        scrollTo("left")
+      } else if (e.key === "ArrowRight") {
+        scrollTo("right")
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  useEffect(() => {
+    checkScrollButtons()
+    const handleScroll = () => checkScrollButtons()
+
+    if (scrollRef.current) {
+      scrollRef.current.addEventListener("scroll", handleScroll)
+      return () => scrollRef.current?.removeEventListener("scroll", handleScroll)
+    }
+  }, [items])
 
   const renderNetflixCard = (item: any, index: number) => (
     <motion.div
-      key={`${currentIndex}-${index}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      key={`${item.id || index}`}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
-      className="group cursor-pointer"
+      className="flex-none w-80 snap-start cursor-pointer"
       onClick={() => handleItemClick(item)}
     >
-      <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video hover:scale-105 transition-all duration-300 hover:z-10">
+      <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video hover:scale-105 transition-all duration-300 hover:z-10 group">
         {/* Background Image/Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-gray-800 to-gray-900">
           {item.image ? (
@@ -55,6 +135,7 @@ export default function ContentCarousel({ items, type }: ContentCarouselProps) {
               src={item.image || "/placeholder.svg"}
               alt={item.title}
               className="w-full h-full object-cover opacity-60"
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -212,55 +293,73 @@ export default function ContentCarousel({ items, type }: ContentCarouselProps) {
 
   return (
     <div className="relative group">
-      {/* Navigation Buttons */}
-      {items.length > itemsPerView && (
-        <>
-          <Button
-            variant="ghost"
-            size="lg"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full"
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="lg"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full"
-            onClick={nextSlide}
-            disabled={currentIndex + itemsPerView >= items.length}
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-        </>
+      {/* Left Arrow */}
+      {canScrollLeft && (
+        <Button
+          variant="ghost"
+          size="lg"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black/90 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full backdrop-blur-sm"
+          onClick={() => scrollTo("left")}
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </Button>
       )}
 
-      {/* Carousel Content */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <AnimatePresence mode="wait">
-          {visibleItems.map((item, index) => renderNetflixCard(item, index))}
-        </AnimatePresence>
+      {/* Right Arrow */}
+      {canScrollRight && (
+        <Button
+          variant="ghost"
+          size="lg"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/80 hover:bg-black/90 text-white opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full backdrop-blur-sm"
+          onClick={() => scrollTo("right")}
+        >
+          <ChevronRight className="h-6 w-6" />
+        </Button>
+      )}
+
+      {/* Fade Edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black to-transparent z-[5] pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black to-transparent z-[5] pointer-events-none" />
+
+      {/* Scrollable Container */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4 cursor-grab active:cursor-grabbing"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {items.map((item, index) => renderNetflixCard(item, index))}
       </div>
-
-      {/* Progress Indicators */}
-      {items.length > itemsPerView && (
-        <div className="flex justify-center mt-6 gap-2">
-          {Array.from({ length: Math.ceil(items.length / itemsPerView) }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index * itemsPerView)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                Math.floor(currentIndex / itemsPerView) === index ? "bg-red-600" : "bg-gray-600"
-              }`}
-            />
-          ))}
-        </div>
-      )}
 
       {/* Detail Modal */}
       <ContentDetailModal item={selectedItem} type={type} isOpen={isModalOpen} onClose={closeModal} />
+
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .line-clamp-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </div>
   )
 }
