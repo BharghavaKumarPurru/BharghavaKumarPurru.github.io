@@ -17,7 +17,7 @@ const projects = [
     description:
       "Enterprise-level document management solution with advanced search capabilities and workflow automation.",
     image: "/placeholder.svg?height=300&width=400",
-    tech: ["C", ".NET Core", "React", "SQL Server", "Azure", "Docker"],
+    tech: ["C#", ".NET Core", "React", "SQL Server", "Azure", "Docker"],
     category: "Full Stack",
     github: "#",
     demo: "#",
