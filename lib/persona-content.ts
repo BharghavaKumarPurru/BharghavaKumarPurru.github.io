@@ -244,7 +244,6 @@ export function getPersonaContent(persona: string): PersonaContent {
               {
                 title: "Master of Science in Computer Science",
                 subtitle: "Case Western Reserve University",
-                period: "August 2023 - May 2025",
                 location: "Cleveland, OH",
                 gpa: "3.8/4.0",
                 description:
