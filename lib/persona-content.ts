@@ -270,8 +270,7 @@ export function getPersonaContent(persona: string): PersonaContent {
               {
                 title: "Bachelor of Technology in Computer Science",
                 subtitle: "Jawaharlal Nehru Technological University",
-                period: "June 2018 - May 2022",
-                location: "Hyderabad, India",
+                location: "India",
                 gpa: "3.7/4.0",
                 description:
                   "Strong foundation in computer science fundamentals with emphasis on software development and system design.",
