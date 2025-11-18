@@ -35,9 +35,9 @@ export function getPersonaContent(persona: string): PersonaContent {
           ...baseContent.hero,
           title: "HIRE BHARGHAVA",
           description:
-            "Experienced .NET Developer with 3+ years in designing CMS-driven websites, RESTful services, and responsive web applications. MS Computer Science graduate from Case Western Reserve University with proven leadership as CTO.",
+            "Experienced .NET Developer with 4.5 years in designing CMS-driven websites, RESTful services, and responsive web applications. MS Computer Science graduate from Case Western Reserve University with proven leadership as CTO.",
           stats: [
-            { value: "3+", label: "Years Experience" },
+            { value: "4.5", label: "Years Experience" },
             { value: "CTO", label: "Current Role" },
             { value: "40%", label: "Deployment Time Reduction" },
             { value: "HIPAA", label: "Compliant Systems" },
