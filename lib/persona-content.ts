@@ -35,7 +35,7 @@ export function getPersonaContent(persona: string): PersonaContent {
           ...baseContent.hero,
           title: "HIRE BHARGHAVA",
           description:
-            "Experienced .NET Developer with 4.5 years in designing CMS-driven websites, RESTful services, and responsive web applications. MS Computer Science graduate from Case Western Reserve University with proven leadership as CTO.",
+            "Experienced .NET Developer with 2.5+ years in designing websites, RESTful services, and responsive web applications. MS Computer Science graduate from Case Western Reserve University with proven leadership as CTO.",
           stats: [
             { value: "4.5", label: "Years Experience" },
             { value: "CTO", label: "Current Role" },
@@ -164,78 +164,192 @@ export function getPersonaContent(persona: string): PersonaContent {
             type: "experience",
             items: [
               {
-                title: "Chief Technology Officer",
-                subtitle: "Hilde B Foundation",
-                period: "May 2025 - Present",
-                location: "Cleveland, OH",
+                title: "Software Engineer (.NET / AWS)",
+                subtitle: "Rally Cloud Inc",
+                period: "Jul 2025 - Present",
+                location: "Texas, United States",
                 description:
-                  "Leading comprehensive technology strategy and end-to-end architecture across multiple platforms including Umbraco CMS, React Native mobile applications, Next.js web applications, .NET Web API services, and Supabase database management.",
+                  "Working as a full-time software engineer developing and optimizing cloud-native, backend-focused applications using .NET, AWS, and containerized microservices.",
                 responsibilities: [
-                  "Architected and implemented scalable microservices infrastructure serving 10,000+ users",
-                  "Led cross-functional team of 8 developers, designers, and QA engineers",
-                  "Established DevOps practices reducing deployment time by 40% through automated CI/CD pipelines",
-                  "Implemented security best practices achieving HIPAA compliance for healthcare data",
-                  "Designed and developed RESTful APIs with comprehensive documentation and testing",
-                  "Mentored junior developers and conducted technical interviews for new hires",
+                  "Designed and developed high-performance ASP.NET Core Web APIs using C#, async/await, and multithreading",
+                  "Built microservices-based solutions deployed using Docker and Kubernetes",
+                  "Integrated AWS services including Lambda, API Gateway, EC2, S3, SNS, SQS, and CloudWatch",
+                  "Implemented authentication and authorization using OAuth2, JWT, and role-based access control",
+                  "Applied caching and distributed caching strategies to improve application performance",
+                  "Optimized SQL Server queries, joins, and stored procedures for scalability and reliability",
+                  "Collaborated with cross-functional, client-facing, and offshore teams in Agile environments"
                 ],
                 technologies: [
-                  "Umbraco CMS",
-                  "React Native",
-                  "Next.js",
-                  ".NET Web API",
-                  "Supabase",
+                  "C#",
+                  ".NET Core",
+                  "ASP.NET Web API",
+                  "AWS",
                   "Docker",
-                  "Azure DevOps",
+                  "Kubernetes",
+                  "Kafka",
+                  "SQL Server",
+                  "OAuth2",
+                  "JWT"
                 ],
                 achievements: [
-                  "Reduced system downtime by 95% through proactive monitoring and alerting",
-                  "Improved application performance by 60% through code optimization and caching strategies",
-                  "Successfully migrated legacy systems to modern cloud-native architecture",
-                ],
+                  "Improved API response times and system throughput through performance tuning",
+                  "Delivered stable, production-ready microservices aligned with enterprise standards"
+                ]
               },
               {
-                title: "Software Engineer Intern",
-                subtitle: "Tharro Labs Inc.",
-                period: "April 2025 - May 2025",
+                title: "Volunteer Software Engineer (.NET / Cloud)",
+                subtitle: "Hilde B Foundation (Nonprofit)",
+                period: "May 2025 - Present",
                 location: "Remote",
                 description:
-                  "Developed cross-platform mobile applications using React Native with robust .NET Web API backends, focusing on user experience and performance optimization.",
+                  "Part-time volunteer role contributing to backend development and cloud engineering initiatives for a nonprofit organization.",
                 responsibilities: [
-                  "Built responsive mobile applications for iOS and Android platforms",
-                  "Developed RESTful APIs using .NET Core with Entity Framework",
-                  "Implemented user authentication and authorization systems",
-                  "Integrated third-party services and APIs for enhanced functionality",
-                  "Participated in agile development processes and code reviews",
+                  "Developed RESTful APIs using ASP.NET Core Web API following SOLID principles",
+                  "Implemented secure authentication and authorization using JWT and OAuth-based mechanisms",
+                  "Containerized backend services using Docker to support consistent deployments",
+                  "Assisted with CI/CD setup and environment configuration",
+                  "Collaborated with stakeholders to gather requirements and propose technical solutions"
                 ],
-                technologies: ["React Native", ".NET Core", "Entity Framework", "SQL Server", "Git"],
+                technologies: [
+                  "C#",
+                  ".NET Core",
+                  "ASP.NET Web API",
+                  "Docker",
+                  "SQL Server",
+                  "JWT",
+                  "OAuth2",
+                  "Azure DevOps"
+                ],
                 achievements: [
-                  "Delivered 3 mobile applications within tight deadlines",
-                  "Achieved 4.8+ star rating on app stores for user experience",
-                ],
+                  "Improved backend stability through better error handling and logging",
+                  "Enhanced API performance through optimized queries and caching"
+                ]
               },
               {
-                title: "Full Stack .NET Developer",
+                title: "Website & CRM Optimization Intern",
+                subtitle: "Summer on the Cuyahoga",
+                period: "Jan 2025 - May 2025",
+                location: "Cleveland, OH",
+                description:
+                  "Worked on improving performance and reliability of web and CRM systems through backend optimization and API enhancements.",
+                responsibilities: [
+                  "Optimized backend APIs and CRM workflows to improve performance and usability",
+                  "Implemented caching strategies to reduce load times and API latency",
+                  "Integrated and validated third-party APIs for secure data exchange",
+                  "Assisted with debugging and resolving production issues"
+                ],
+                technologies: [
+                  "C#",
+                  ".NET",
+                  "SQL Server",
+                  "Angular",
+                  "REST APIs"
+                ],
+                achievements: [
+                  "Improved CRM performance and user experience through backend optimizations"
+                ]
+              },
+              {
+                title: "Application Developer Intern",
+                subtitle: "Tharro Labs Inc",
+                period: "Mar 2025 - May 2025",
+                location: "Remote",
+                description:
+                  "Supported backend development for cloud-based applications with a focus on messaging and secure integrations.",
+                responsibilities: [
+                  "Developed .NET Core Web APIs supporting application workflows",
+                  "Integrated AWS SNS and SQS for asynchronous message processing",
+                  "Implemented secure authentication using OAuth2 and Azure AD",
+                  "Optimized SQL queries and backend logic",
+                  "Participated in Agile ceremonies and code reviews"
+                ],
+                technologies: [
+                  "C#",
+                  ".NET Core",
+                  "ASP.NET Web API",
+                  "AWS SNS",
+                  "AWS SQS",
+                  "SQL Server",
+                  "OAuth2",
+                  "Git"
+                ],
+                achievements: [
+                  "Improved backend reliability and performance through optimized data access"
+                ]
+              },
+              {
+                title: "Web Development Intern",
+                subtitle: "Waverly Partners",
+                period: "Apr 2025 - May 2025",
+                location: "Cleveland, OH",
+                description:
+                  "Contributed to development and optimization of web applications and backend services.",
+                responsibilities: [
+                  "Assisted in developing containerized .NET-based applications",
+                  "Improved API responsiveness and UI performance through optimization",
+                  "Supported deployment and testing activities"
+                ],
+                technologies: [
+                  ".NET",
+                  "Docker",
+                  "REST APIs",
+                  "JavaScript"
+                ],
+                achievements: [
+                  "Contributed to performance improvements in web application workflows"
+                ]
+              },
+              {
+                title: "Teaching Assistant – Computer Networks",
+                subtitle: "Case Western Reserve University",
+                period: "Aug 2024 - Dec 2024",
+                location: "Cleveland, OH",
+                description:
+                  "Academic support role assisting with undergraduate-level Computer Networks coursework.",
+                responsibilities: [
+                  "Assisted students with networking fundamentals, TCP/IP, and secure communication concepts",
+                  "Supported lab sessions involving network analysis and debugging",
+                  "Reviewed assignments and provided technical guidance under faculty supervision"
+                ],
+                technologies: [
+                  "TCP/IP",
+                  "Networking Fundamentals",
+                  "Security Concepts"
+                ],
+                achievements: [
+                  "Supported improved student understanding of networking and system-level concepts"
+                ]
+              },
+              {
+                title: "Software Engineer (.NET)",
                 subtitle: "HCL Technologies",
-                period: "July 2022 - December 2023",
+                period: "Sep 2022 - Dec 2023",
                 location: "Chennai, India",
                 description:
-                  "Specialized in developing content-driven web applications using Umbraco CMS and ASP.NET Core, serving enterprise clients with complex content management requirements.",
+                  "Worked as a full-time software engineer developing enterprise-grade .NET applications and backend systems.",
                 responsibilities: [
-                  "Developed and maintained large-scale web applications using Umbraco CMS",
-                  "Created custom Umbraco packages and extensions for specific client needs",
-                  "Implemented responsive web designs with modern CSS frameworks",
-                  "Optimized database queries and improved application performance",
-                  "Collaborated with international teams across different time zones",
-                  "Provided technical support and training to client teams",
+                  "Developed and maintained ASP.NET Core applications and REST APIs",
+                  "Applied async/await and multithreading for high-throughput backend systems",
+                  "Worked extensively with SQL Server including joins, stored procedures, and functions",
+                  "Developed SSIS packages and SSRS reports for ETL and reporting",
+                  "Collaborated with QA, DevOps, and business teams in Agile/Scrum environments"
                 ],
-                technologies: ["Umbraco CMS", "ASP.NET Core", "C#", "SQL Server", "JavaScript", "Bootstrap"],
+                technologies: [
+                  "C#",
+                  ".NET Core",
+                  "ASP.NET Web API",
+                  "SQL Server",
+                  "SSIS",
+                  "SSRS",
+                  "Git",
+                  "Agile/Scrum"
+                ],
                 achievements: [
-                  "Successfully delivered 15+ client projects with 98% client satisfaction rate",
-                  "Reduced page load times by 45% through optimization techniques",
-                  "Mentored 5 junior developers in Umbraco development best practices",
-                ],
-              },
-            ],
+                  "Reduced slow-running SQL queries by up to 60% through performance tuning",
+                  "Contributed to stable enterprise releases used by multiple business teams"
+                ]
+              }
+            ]
           },
           {
             title: "Education & Certifications",
