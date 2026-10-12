@@ -1,38 +1,19 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import IntroAnimation from "@/components/intro-animation"
-import ProfileSelector from "@/components/profile-selector"
+import Link from "next/link"
 
 export default function HomePage() {
-  const [showIntro, setShowIntro] = useState(true)
-  const [showProfiles, setShowProfiles] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowIntro(false)
-      setShowProfiles(true)
-    }, 5500) // Extended to accommodate the new animation
-
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
-    <div className="min-h-screen bg-black">
-      <AnimatePresence mode="wait">
-        {showIntro && (
-          <motion.div key="intro" initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
-            <IntroAnimation />
-          </motion.div>
-        )}
-
-        {showProfiles && (
-          <motion.div key="profiles" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-            <ProfileSelector />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <main className="flex min-h-screen items-center justify-center bg-[#111311] px-6 text-[#f4f3ec]">
+      <section className="max-w-lg text-center">
+        <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#e45b43]">Temporary page</p>
+        <h1 className="text-4xl font-semibold">Page not loading</h1>
+        <p className="mt-4 leading-7 text-white/60">The main portfolio page is temporarily unavailable.</p>
+        <Link
+          href="/notes/"
+          className="mt-8 inline-flex h-11 items-center justify-center bg-[#e45b43] px-5 font-medium text-white transition hover:bg-[#cc4933]"
+        >
+          Open shared notes
+        </Link>
+      </section>
+    </main>
   )
 }

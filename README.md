@@ -2,6 +2,8 @@
 
 This Next.js site is exported as static files for GitHub Pages.
 
+The shared-notes sign-in temporarily serves as the homepage at `/`. The original portfolio intro and profile selector remain available at `/portfolio/`.
+
 ## Shared notes setup
 
 The `/notes/` page uses Supabase Auth and Postgres, with email/password and Google sign-in. To enable it:

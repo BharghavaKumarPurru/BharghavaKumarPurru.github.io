@@ -166,7 +166,7 @@ export default function SharedNotesPage() {
   return (
     <main className="min-h-screen bg-[#111311] text-[#f4f3ec]">
       <header className="flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-10">
-        <Link href="/" aria-label="Back to portfolio" className="inline-flex items-center gap-2 text-sm text-white/65 transition hover:text-white">
+        <Link href="/portfolio/" aria-label="Back to portfolio" className="inline-flex items-center gap-2 text-sm text-white/65 transition hover:text-white">
           <ArrowLeft size={17} /> Portfolio
         </Link>
         {session && (
