@@ -2,7 +2,7 @@
 
 This Next.js site is exported as static files for GitHub Pages.
 
-The shared-notes sign-in temporarily serves as the homepage at `/`. The original portfolio intro and profile selector remain available at `/portfolio/`.
+The root path `/` temporarily displays a "Page not loading" placeholder. Shared notes remain at `/notes/`, and the original portfolio intro and profile selector remain available at `/portfolio/`.
 
 ## Shared notes setup
 

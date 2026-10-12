@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 const profiles = [
@@ -63,9 +62,6 @@ export default function ProfileSelector() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 flex flex-col items-center justify-center p-8">
-      <Link href="/notes/" className="absolute right-6 top-6 text-sm text-gray-400 transition-colors hover:text-white">
-        Shared notes
-      </Link>
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
