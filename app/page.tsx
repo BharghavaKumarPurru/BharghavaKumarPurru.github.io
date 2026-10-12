@@ -1,4 +1,21 @@
+"use client"
+
+import { useEffect } from "react"
+
 export default function HomePage() {
+  useEffect(() => {
+    const callbackParams = new URLSearchParams(window.location.search)
+    const hasAuthCallback =
+      window.location.hash.includes("access_token=") ||
+      window.location.hash.includes("error_code=") ||
+      callbackParams.has("code") ||
+      callbackParams.has("error")
+
+    if (hasAuthCallback) {
+      window.location.replace(`/notes/${window.location.search}${window.location.hash}`)
+    }
+  }, [])
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#111311] px-6 text-[#f4f3ec]">
       <section className="max-w-lg text-center">
