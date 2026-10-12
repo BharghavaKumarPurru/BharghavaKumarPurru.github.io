@@ -61,7 +61,7 @@ export default function HeroSection({ persona, content }: HeroSectionProps) {
             {/* Stats */}
             {content.hero.stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-start text-left">
-                {content.hero.stats.map((stat, index) => (
+                {content.hero.stats.map((stat: { value: string; label: string }, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}

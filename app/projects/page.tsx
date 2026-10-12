@@ -286,7 +286,6 @@ export default function ProjectsPage() {
               style={{
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",
-                WebkitScrollbar: { display: "none" },
               }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
